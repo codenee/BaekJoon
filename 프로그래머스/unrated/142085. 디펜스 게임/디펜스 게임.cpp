@@ -1,30 +1,27 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <functional>
 
 using namespace std;
 
 int solution(int n, int k, vector<int> enemy) {
-    
-    if(enemy.size() <= k){
-        return enemy.size();
-    }
-    
     int answer = 0;
-    priority_queue<int, vector<int> , greater<int>> pq;
-    for(int i = 0; i < enemy.size(); i++){
-        int e = enemy[i];
+    
+    priority_queue<int> pq;
+    
+    for(const auto& e : enemy){
         pq.push(e);
-        if(pq.size() > k){
-            answer += pq.top();
+        if(k > 0 && n < e){
+            n += pq.top();
             pq.pop();
+            k--;
         }
-        if(answer > n){
-            return i;
+        n -= e;
+        if(n < 0){
+            break;
         }
-        
+        answer++;
     }
     
-    return enemy.size();
+    return answer;
 }
