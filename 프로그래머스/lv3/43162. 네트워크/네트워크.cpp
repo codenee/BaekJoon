@@ -3,29 +3,31 @@
 
 using namespace std;
 
-void dfs(int idx, const vector<vector<int>>& computers, vector<bool> &check){
-    
-    for(int i = 0; i < computers.size(); i++){
-        if(computers[idx][i] == 1 && !check[i]){
-            check[i] = true;
-            dfs(i,computers, check);
+vector<bool> check;
+
+void dfs(int now, const vector<vector<int>> computers){
+    if(check[now]){
+        return;
+    }
+    check[now] = true;
+    for(int i = 0; i < computers[now].size(); i++){
+        if(computers[now][i] == 1){
+            dfs(i, computers);
         }
     }
-    
 }
 
 int solution(int n, vector<vector<int>> computers) {
-    
     int answer = 0;
-    vector<bool> check(n, false);
+    
+    check.resize(n);
+    
     for(int i = 0; i < n; i++){
         if(!check[i]){
-            check[i] = true;
-            dfs(i,computers, check);
             answer++;
+            dfs(i, computers);
         }
     }
-    
     
     return answer;
 }
