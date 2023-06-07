@@ -1,26 +1,31 @@
 #include <iostream>
-#include <stdio.h>
-#include <string>
 #include <vector>
-using namespace std;
 
+using namespace std;
 
 int main() {
 
-	int n = 0, m = 0;
+	int n, m;
 	scanf("%d %d", &n, &m);
 
-	vector<int> vec(n + 1, 0);
+	vector<int> num(n + 1, 0);
 	for (int i = 1; i <= n; i++) {
-		int value = 0;
-		scanf("%d", &value);
-		vec[i] = vec[i - 1] + value;
+		int input = 0;
+		scanf("%d", &input);
+		num[i] = num[i-1] + input;
 	}
 
-	int a = 0, b = 0;
+	vector<int> result(m, 0);
 	for (int i = 0; i < m; i++) {
-		scanf("%d %d", &a, &b);
-		printf("%d\n", vec[b] - vec[a - 1]);
+		int start = 0, end = 0;
+		scanf("%d %d", &start, &end);
+		result[i] = num[end] - num[start - 1];
 	}
+
+	for (const auto& it : result) {
+		printf("%d\n", it);
+	}
+
+
 	return 0;
 }
