@@ -2,17 +2,16 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int n, long k) {
-        
-        ArrayList<Integer> list = new ArrayList<>();
         long fact = 1;
+        ArrayList<Integer> list = new ArrayList<>();
         for(int i = 1; i <= n; i++){
-            fact *= i;
             list.add(i);
+            fact *= i;
         }
         
-        int[] answer = new int[n];
         k--;
         int idx = 0;
+        int[] answer = new int[n];
         for(int i = n; i > 0; i--){
             fact /= i;
             int x = (int)(k / fact);
