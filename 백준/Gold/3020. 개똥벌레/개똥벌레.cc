@@ -1,47 +1,41 @@
-#include <algorithm>
+#include <iostream>
 #include <vector>
-#include <stdio.h>
-#include <climits>
-
 
 using namespace std;
 
 int main(){
+    int N, H;
 
-    int n = 0, h = 0;
-    scanf("%d %d", &n, &h);
+    scanf("%d %d", &N, &H);
 
-     int top[500001] = {0,};
-    int bottom[500001] = {0,};
-    int input = 0;
-    for(int i = 0; i < n; i++){
+    vector<int> top(H+1, 0), bottom(H+1, 0);
+    for(int i = 0; i < N; i++){
+        int input = 0;
         scanf("%d", &input);
         if(i % 2 == 0){
             bottom[input]++;
         }
         else{
-            top[h - input + 1]++;
+            top[H-input+1]++;
         }
     }
 
-    for(int i = 1; i <= h; i++){
+    for(int i = 1; i <= H; i++){
         top[i] += top[i-1];
-        bottom[h - i] += bottom[h - i + 1];
+        bottom[H-i] += bottom[H-i+1];
     }
 
-    long long ans = LONG_LONG_MAX;
+    long long answer = INT32_MAX;
     int cnt = 0;
-    for(int i = 1; i <= h; i++){
-        if(top[i] + bottom[i] < ans){
+    for(int i = 1; i <= H; i++){
+        if(top[i] + bottom[i] < answer){
+            answer = top[i] + bottom[i];
             cnt = 1;
-            ans = top[i] + bottom[i];
         }
-        else if(top[i] + bottom[i] == ans){
+        else if(top[i] + bottom[i] == answer){
             cnt++;
         }
     }
-   
-   printf("%d %d", ans, cnt);
-
+    printf("%lld %d", answer, cnt);
     return 0;
 }
