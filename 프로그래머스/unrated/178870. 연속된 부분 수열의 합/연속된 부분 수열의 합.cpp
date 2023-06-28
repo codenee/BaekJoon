@@ -7,7 +7,7 @@ using namespace std;
 vector<int> solution(vector<int> sequence, int k) {
     vector<int> answer(2, 0);
     queue<pair<int, int>> q;
-    int n = sequence.size(), len = 1000001, sum = 0;
+    int n = sequence.size(), len = INT32_MAX, sum = 0;
     
     for(int i = 0; i < n; i++){
         q.push({sequence[i], i});
