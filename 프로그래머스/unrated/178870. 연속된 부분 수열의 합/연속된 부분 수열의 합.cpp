@@ -5,9 +5,31 @@
 using namespace std;
 
 vector<int> solution(vector<int> sequence, int k) {
+
+   vector<int> answer;
+   int start = 0, end = 0, sum = 0;
+   for(int i = 0; i < sequence.size(); i++){
+        end = i;
+        sum += sequence[end];
+        while(sum > k){
+            sum -= sequence[start++];
+        }
+        if(sum == k){
+            if(answer.empty() || end - start < answer[1] - answer[0]){
+                answer = {start, end};
+            }
+        }
+   }
+    
+    return answer;
+}
+
+
+vector<int> solution2(vector<int> sequence, int k) {
+    
     vector<int> answer(2, 0);
     queue<pair<int, int>> q;
-    int n = sequence.size(), len = INT32_MAX, sum = 0;
+    int n = sequence.size(), len = 1000001, sum = 0;
     
     for(int i = 0; i < n; i++){
         q.push({sequence[i], i});
