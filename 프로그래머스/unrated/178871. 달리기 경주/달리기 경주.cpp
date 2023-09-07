@@ -7,26 +7,25 @@ using namespace std;
 vector<string> solution(vector<string> players, vector<string> callings) {
 	vector<string> answer;
 
-	map<int, string> nRank;
-	map<string, int> strRank;
+	map<string, int> mRank;
 
 	for (int i = 0; i < players.size(); i++) {
-		nRank[i] = players[i];
-		strRank[players[i]] = i;
+		mRank[players[i]] = i;
 	}
 
+	int n1 = 0, n2 = 0;
+	string tmp;
 	for (int i = 0; i < callings.size(); i++) {
-		int cur = strRank[callings[i]];
-		string name = nRank[cur - 1];
-		nRank[cur - 1] = callings[i];
-		nRank[cur] = name;
-		strRank[callings[i]] = cur - 1;
-		strRank[name] = cur;
+		n2 = mRank[callings[i]];
+		n1 = n2 - 1;
+		mRank[players[n2]]--;
+		mRank[players[n1]]++;
+		tmp = players[n2];
+		players[n2] = players[n1];
+		players[n1] = tmp;
 	}
 
-	for (const auto& it : nRank) {
-		answer.push_back(it.second);
-	}
+	answer = players;
 	
 	return answer;
 }
