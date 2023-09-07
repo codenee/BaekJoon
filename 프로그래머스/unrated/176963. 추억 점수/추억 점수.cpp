@@ -1,13 +1,13 @@
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
 vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
     vector<int> answer;
     
-    map<string, int> hash;
+    unordered_map<string, int> hash;
     for(int i = 0; i < name.size(); i++){
         hash[name[i]] = yearning[i];
     }
