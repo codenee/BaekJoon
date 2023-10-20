@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 vector<vector<int>> solution(vector<vector<int>> rc, vector<string> operations) {
 
 	deque<int> left, right;
@@ -57,7 +56,6 @@ vector<vector<int>> solution(vector<vector<int>> rc, vector<string> operations) 
 		answer[i][0] = left[i];
 		answer[i][col - 1] = right[i];
 		for (int j = 1; j < col - 1; j++) {
-			//answer[i][j] = &mid[i][j - 1];
 			answer[i][j] = mid[i].front();
 			mid[i].pop_front();
 
