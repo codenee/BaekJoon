@@ -4,50 +4,44 @@
 
 using namespace std;
 
-void myParser(const string& str, vector<string> &result){
-    string s = str;
+void myParser(const string& str, vector<string>& value){
+    string s = str, token("");
     int pos = 0;
-    string token("");
-    while( (pos = s.find(" ")) != string::npos){
+    while( (pos = s.find(" ")) != string::npos ){
         token = s.substr(0, pos);
-        result.push_back(token);
+        value.push_back(token);
         s.erase(0, pos + 1);
     }
-    result.push_back(s);
+    value.push_back(s);
 }
 
 vector<string> solution(vector<string> record) {
     
-    unordered_map<string, string> table;
+    unordered_map<string, string> msg;
+    unordered_map<string, string> nickname;
     vector<pair<string, string>> vec;
     
-    for(const auto& rec : record){
+    msg["Enter"] = "님이 들어왔습니다.";
+    msg["Leave"] = "님이 나갔습니다.";
+    
+    for(string& s : record){
         vector<string> value;
-        myParser(rec, value);
-            if( value[0][0] == 'E'){
-                table[value[1]] = value[2]; 
-                vec.push_back({"E", value[1]});
-            }
-            else if(value[0][0] == 'L'){
-                vec.push_back({"L", value[1]});
-            }
-            else if(value[0][0] == 'C'){
-                table[value[1]] = value[2];
-            }
-        
-    }
+        myParser(s, value);
+        if(value.size() == 3){
+            nickname[value[1]] = value[2];
+        }
+        if(value[0][0] == 'E'){
+            vec.push_back({value[0], value[1]});
+        }
+        else if(value[0][0] == 'L'){
+            vec.push_back({value[0], value[1]});
+        }
+    }    
     
     vector<string> answer;
     for(const auto& it : vec){
-        string s("");
-        if(it.first == "E"){
-            s = table[it.second]+"님이 들어왔습니다." ;
-            answer.push_back(s);
-        }
-        else if(it.first == "L"){
-            s = table[it.second]+"님이 나갔습니다.";
-            answer.push_back(s);
-        }
+        string str = nickname[it.second] + msg[it.first];
+        answer.push_back(str);
     }
     return answer;
 }
